@@ -20,7 +20,7 @@ foreach ($slnFile in $slnFiles) {
 
   $projName = (Get-Item $slnFile).Name;
 
-  $projPath = (Get-Item $projPath).Directory
+  $projPath = (Get-Item $slnFile).Directory
 
   Set-Location $projPath;
 
