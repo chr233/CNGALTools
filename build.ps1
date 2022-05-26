@@ -20,12 +20,14 @@ foreach ($slnFile in $slnFiles) {
 
   $projName = (Get-Item $slnFile).Name;
 
-  $projPath = (Get-Item $slnFile).Directory
+  $projPath = (Get-Item $slnFile).Directory;
 
   Set-Location $projPath;
 
   Write-Output "Start build [$projName] $proj";
   try {
+    dotnet restore $slnFile;
+
     MSBuild.exe --nologo --restore --property:Configuration=Release;
     Write-Output "Build complete.";
   }
