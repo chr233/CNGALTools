@@ -35,7 +35,7 @@ jobs:
       - name: Publish on Windows
         shell: pwsh
         run: |
-          $script = "../build.ps1";
+          $script = "./build.ps1";
           Set-Location ${{ github.workspace }};
           powershell $script;
 

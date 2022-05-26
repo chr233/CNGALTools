@@ -23,8 +23,6 @@ if (!(Test-Path $distFolder)) {
 
 foreach ($proj in $projectFolders) {
 
-  continue;
-
   Write-Output "###############################################################";
 
   $fullPath = Join-Path $PSScriptRoot $proj;
