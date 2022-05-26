@@ -12,13 +12,15 @@ if (!(Test-Path $distFolder)) {
   New-Item -ItemType Directory -Path $distFolder -Force | Out-Null;
 }
 
-$projectFolders = Get-ChildItem -Path $PSScriptRoot -Recurse -Include "*.sln";
+$slnFiles = Get-ChildItem -Path $PSScriptRoot -Recurse -Include "*.sln";
 
-foreach ($projPath in $projectFolders) {
+foreach ($slnFile in $slnFiles) {
 
   Write-Output "###############################################################";
 
-  $projName = (Get-Item $projPath).Name;
+  $projName = (Get-Item $slnFile).Name;
+
+  $projPath = (Get-Item $projPath).Directory
 
   Set-Location $projPath;
 
@@ -30,8 +32,6 @@ foreach ($projPath in $projectFolders) {
   catch {
     Write-Output "Build error.";
   }
-
-  Write-Output "Build complete.";
 
   $exes = Get-ChildItem $projPath -Recurse -Include "*.exe"
 
