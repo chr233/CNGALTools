@@ -2,15 +2,6 @@ $zipName = "CNGALTOOLS.zip";
 
 $distName = "dist";
 
-$projectFolders = 
-"1.NVL\BKEngine\BKEngineUnpacker",
-"1.NVL\NVLKrkr2\NvlKR2Extract",
-"1.NVL\NVLKrkr2\NVLKrkrDump",
-"1.NVL\NVLUnity\NVLUnityDecryptor",
-"2.Strrationalism\Snowing\SnowingExtract",
-"3.BlueAngel\BlueAngelExtract",
-"4.Fontainebleau\MeetInParisDumper",
-"6.iFAction\iFActionTool";
 
 $distFolder = Join-Path $PSScriptRoot $distName;
 
@@ -21,26 +12,21 @@ if (!(Test-Path $distFolder)) {
   New-Item -ItemType Directory -Path $distFolder -Force | Out-Null;
 }
 
-foreach ($proj in $projectFolders) {
+$projectFolders = Get-ChildItem -Path $PSScriptRoot -Recurse -Include "*.sln";
+
+foreach ($projPath in $projectFolders) {
 
   Write-Output "###############################################################";
 
-  $fullPath = Join-Path $PSScriptRoot $proj;
+  $projName = (Get-Item $projPath).Name;
 
-  if (!(Test-Path $fullPath)) {
-    Write-Output "Project $proj not found";
-    continue;
-  }
-
-  $projName = (Get-Item $fullPath).Name;
-
-  Set-Location $fullPath;
+  Set-Location $projPath;
 
   Write-Output "Start build [$projName] $proj";
   MSBuild.exe --nologo --restore --property:Configuration=Release;
   Write-Output "Build complete.";
 
-  $exes = Get-ChildItem $fullPath -Recurse -Include "*.exe"
+  $exes = Get-ChildItem $projPath -Recurse -Include "*.exe"
 
   Write-Output "Copy binariy files";
 
