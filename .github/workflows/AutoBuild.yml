@@ -29,10 +29,10 @@ jobs:
         with:
           msbuild-architecture: x64
 
-      - name: Verify .NET Core
-        run: dotnet test
+      # - name: Verify .NET Core
+      #   run: dotnet test
 
-      - name: Publish ASFEnhance on Windows
+      - name: Publish on Windows
         shell: pwsh
         run: |
           $script = "./build.ps1";
