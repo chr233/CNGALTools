@@ -25,7 +25,9 @@ jobs:
           dotnet-version: ${{ env.DOTNET_SDK_VERSION }}
 
       - name: Setup MSBuild.exe
-        uses: microsoft/setup-msbuild@v1.1.1
+        uses: microsoft/setup-msbuild@v1.1
+        with:
+          msbuild-architecture: x64
 
       - name: Verify .NET Core
         run: dotnet test
