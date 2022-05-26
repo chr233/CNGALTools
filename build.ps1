@@ -43,7 +43,7 @@ foreach ($proj in $projectFolders) {
   Set-Location $fullPath;
 
   Write-Output "Start build [$projName] $proj";
-  # MSBuild.exe --nologo --restore --property:Configuration=Release;
+  MSBuild.exe --nologo --restore --property:Configuration=Release;
   Write-Output "Build complete.";
 
   $exes = Get-ChildItem $fullPath -Recurse -Include "*.exe"
